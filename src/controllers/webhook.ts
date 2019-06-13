@@ -1,5 +1,9 @@
 import express from 'express';
-import line from '@line/bot-sdk';
+import {
+  middleware,
+  JSONParseError,
+  SignatureValidationFailed
+} from '@line/bot-sdk';
 import getGlobalConfig from '../config/getGlobalConfig';
 
 const {
@@ -7,28 +11,21 @@ const {
   channelSecret = '',
 } = getGlobalConfig();
 
-
 const router = express.Router();
-const client = new line.Client({ channelAccessToken, channelSecret });
-
-/** for line bot webhook routes */
-const mapEvents = (event: any) => {
-  if (event.type === 'text') {
-    console.log('got text event: ', event.message.text);
-    return client.replyMessage(event.replayToken, {
-      type: 'text',
-      text: event.message.text
-    })
+const authMiddleware: express.ErrorRequestHandler = (err, req, res, next) => {
+  if (err instanceof SignatureValidationFailed) {
+    return res.status(401).send(err.signature);
   }
-  console.log('got other events');
-  return Promise.resolve(null);
+  if (err instanceof JSONParseError) {
+    return res.status(400).send(err.raw);
+  }
+  next(err);
 }
 
-
-router.use(line.middleware({ channelAccessToken, channelSecret }))
+router.use(middleware({ channelAccessToken, channelSecret }))
+router.use(authMiddleware);
 router.post('*', async (req, res) => {
-  const result = Promise.all(req.body.events.map(mapEvents));
-  res.json(result);
+  res.json(req.body.events);
 })
 
 export default router;
