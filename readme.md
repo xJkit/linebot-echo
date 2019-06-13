@@ -1,3 +1,3 @@
 # Linebot echo example
 
-This is the first linebot built with `Netlify functions`, `TypeScript` and `Express.js`.
+A highly simple linebot built with `Netlify functions`, `TypeScript` and `Express.js`.
