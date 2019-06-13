@@ -3,12 +3,9 @@ import getGlobalConfig from '../config/getGlobalConfig';
 
 const router = express.Router();
 
-/** constants */
-const rootAdminName = 'joey54780';
-
 const authMiddleware: express.RequestHandler = (req, res, next) => {
   try {
-    if (req.headers.authorization !== `Bearer ${rootAdminName}`) {
+    if (req.headers.authorization !== `Bearer ${getGlobalConfig().jwtToken}`) {
       throw new Error('Not qualified user to check');
     }
   } catch (error) {
