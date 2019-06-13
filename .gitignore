@@ -1,0 +1,5 @@
+functions_build
+functions_dev
+node_modules
+
+.netlify
