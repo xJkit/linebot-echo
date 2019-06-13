@@ -2,4 +2,5 @@ functions_build
 functions_dev
 node_modules
 
+.env
 .netlify
