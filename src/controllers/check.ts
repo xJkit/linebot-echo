@@ -24,15 +24,5 @@ router.post('/info', (req, res) => {
     }
   });
 })
-router.post('*', (req, res) => {
-  res.status(404).json({
-    message: 'check nowhere'
-  })
-})
-router.get('*', (req, res) => {
-  res.status(404).json({
-    message: 'check nowhere'
-  })
-})
 
 export default router;

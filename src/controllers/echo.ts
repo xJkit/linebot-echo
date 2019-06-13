@@ -8,10 +8,4 @@ router.get('/:message', (req, res) => {
   });
 })
 
-router.get('*', (req, res) => {
-  res.status(404).json({
-    message: 'echo cannnot understand!'
-  })
-});
-
 export default router;

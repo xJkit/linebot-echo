@@ -17,7 +17,7 @@ const app = express();
 /** Routes */
 app.use(`${API_ROOT}/echo`, echoRouter);
 app.use(`${API_ROOT}/check`, checkRouter);
-app.get('*', (req, res) => {
+app.all('*', (req, res) => {
   res.status(404).json({
     error: {
       message: 'this is the 404 not found page!'
