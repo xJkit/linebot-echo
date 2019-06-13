@@ -14,6 +14,7 @@
     "watch": "tsc --watch",
     "serve": "NODE_ENV=dev netlify-lambda serve functions_dev",
     "build": "NODE_ENV=production netlify-lambda build functions_dev",
+    "build:netlify": "tsc && npm run build",
     "deploy": "netlify deploy"
   }
 }
