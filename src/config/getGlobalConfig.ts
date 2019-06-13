@@ -6,8 +6,8 @@ interface GlobalConfig {
 
 export default function getGlobalConfig() {
   const config: GlobalConfig = {
-    channelAccessToken: process.env.channelAccessToken,
-    channelSecret: process.env.channelSecret,
+    channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
+    channelSecret: process.env.CHANNEL_SECRET,
   };
   return config;
 }
