@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@line/bot-sdk": "^6.7.1",
     "express": "^4.17.1",
     "netlify-lambda": "^1.4.13",
     "serverless-http": "^2.0.2"

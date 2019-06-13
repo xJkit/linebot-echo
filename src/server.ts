@@ -11,12 +11,14 @@ const API_ROOT = process.env.NODE_ENV === 'production'
 /** controllers */
 import echoRouter from './controllers/echo';
 import checkRouter from './controllers/check';
+import webhookRouter from './controllers/webhook';
 
 const app = express();
 
 /** Routes */
 app.use(`${API_ROOT}/echo`, echoRouter);
 app.use(`${API_ROOT}/check`, checkRouter);
+app.use(`${API_ROOT}/webhook`, webhookRouter);
 app.all('*', (req, res) => {
   res.status(404).json({
     error: {
