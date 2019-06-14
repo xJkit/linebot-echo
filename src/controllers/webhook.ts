@@ -2,7 +2,8 @@ import express from 'express';
 import {
   middleware,
   JSONParseError,
-  SignatureValidationFailed
+  SignatureValidationFailed,
+  Client,
 } from '@line/bot-sdk';
 import getGlobalConfig from '../config/getGlobalConfig';
 
@@ -10,7 +11,7 @@ const {
   channelAccessToken = '',
   channelSecret = '',
 } = getGlobalConfig();
-
+const lineClient = new Client({ channelAccessToken, channelSecret });
 const router = express.Router();
 const authMiddleware: express.ErrorRequestHandler = (err, req, res, next) => {
   if (err instanceof SignatureValidationFailed) {
@@ -25,7 +26,14 @@ const authMiddleware: express.ErrorRequestHandler = (err, req, res, next) => {
 router.use(middleware({ channelAccessToken, channelSecret }))
 router.use(authMiddleware);
 router.post('*', async (req, res) => {
-  res.json(req.body.events);
-})
+  const [event] = req.body.events;
+  lineClient.replyMessage(
+    event.replyToken,
+    {
+      type: 'text',
+      text: '12345'
+    }
+  );
+});
 
 export default router;
